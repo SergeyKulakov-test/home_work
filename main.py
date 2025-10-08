@@ -1,29 +1,24 @@
-try:
-    print("Сложение")
-    num1 = float(input("Введите первое число: "))
-    num2 = float(input("Введите второе число: "))
-    result1 = num1 + num2
-    print(f"Результат сложения: {result1}")
+def max_number(num1, num2):
+    if num1 > num2: res=num1
+    elif num1 < num2: res=num2
+    else: res="Числа равны"
+    return res
 
-    print("Вычитание")
-    num3 = float(input("Введите первое число: "))
-    num4 = float(input("Введите второе число: "))
-    result2 = num3 - num4
-    print(f"Результат вычитания: {result2}")
+print (max_number (7, 7))
 
-    print("Умножение")
-    num5 = float(input("Введите первое число: "))
-    num6 = float(input("Введите второе число: "))
-    result3 = num5 * num6
-    print(f"Результат умножения: {result3}")
+def empty_function():
+    pass
+    return
 
-    print("Деление")
-    num7 = float(input("Введите первое число: "))
-    num8 = float(input("Введите второе число: "))
-    result = num7 / num8
-    print(f"Результат деления: {result}")
-except ValueError:
-    print("Ошибка: введено не число!")
-except ZeroDivisionError:
-    print("Ошибка: Деление на ноль!")
+def even_numbers(n):
+    i = 0
+    for i in range(i, n):
+        if (i % 2 == 0) and (i != 0):
+            yield i
+def  test_max_number(num1, num2):
+    assert max_number(num1, num2) == num2 and max_number(num1, num2) == num2, "Числа равны"
+    assert max_number(num1, num2) == num1, "Первое число больше"
+    assert max_number(num1, num2) == num2, "Второе число больше"
 
+for i in even_numbers(5):
+    print(i)
