@@ -1,13 +1,12 @@
-def voit(age, citizenship, disqualification):
-    if (age < 18): print("Вам меньше 18 лет, голосовать нельзя")
-    elif (citizenship != "Russia"): print("Вы не гражданин, голосовать нельзя")
-    elif (disqualification == True): print("Вы отстранены от голосования")
-    else: print("Голосуйте")
+def voit(age: bool, citizenship: bool, disqualification: bool):
+    if age and citizenship and not disqualification:
+        print("Голосуйте")
+    else: print("Вы не можете голосовать")
 
-voit(18, "Russia", False)
-voit(20, "Russa", False)
-voit(16, "Russia", False)
-voit(20, "Russia", True)
+voit(True, True, False)
+voit(True, False, True)
+voit(False, True, True)
+voit(True, True, True)
 
 
 
