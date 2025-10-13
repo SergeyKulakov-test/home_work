@@ -1,13 +1,9 @@
-def voit(age: bool, citizenship: bool, disqualification: bool):
-    if age and citizenship and not disqualification:
-        print("Голосуйте")
-    else: print("Вы не можете голосовать")
-
-voit(True, True, False)
-voit(True, False, True)
-voit(False, True, True)
-voit(True, True, True)
-
+num=int(input("Введите число от 1 до 5: "))
+if num == 1 : print("Соответствующее слово: One")
+elif num == 2 : print("Соответствующее слово: Two")
+elif num == 3 : print("Соответствующее слово: Three")
+elif num == 4 : print("Соответствующее слово: Four")
+else : print("Соответствующее слово: Five")
 
 
 
