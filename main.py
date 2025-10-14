@@ -1,9 +1,7 @@
 num=int(input("Введите число от 1 до 5: "))
-if num == 1 : print("Соответствующее слово: One")
-elif num == 2 : print("Соответствующее слово: Two")
-elif num == 3 : print("Соответствующее слово: Three")
-elif num == 4 : print("Соответствующее слово: Four")
-else : print("Соответствующее слово: Five")
+numbers = ["One", "Two", "Three", "Four", "Five"]
+if num>=1 and num<=5:
+    print(f"Соответствующее слово: {numbers[(num-1)]}")
 
 
 
