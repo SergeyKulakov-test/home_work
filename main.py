@@ -9,17 +9,21 @@ def square_odd_numbers():
     square_odd = []
     for i in range(0, 10):
         if i % 2 != 0:
-            square_odd.append(i**2)
+            square_odd.append(i)
+    square_odd = [x**2 for x in square_odd]
     return print(f"Список квадратов нечетных чисел до 10: {square_odd}")
 
 def count_positive_numbers():
     count = 0
     while True:
-        number = float(input("Введите число: "))
-        if number < 0:
-            break
-        else:
-            count += 1
+        try:
+            number = float(input("Введите число: "))
+            if number < 0:
+                break
+            else:
+                count += 1
+        except ValueError:
+            print("Ошибка! Пожалуйста, введите число.")
     return print(f"Количество введеных не отрицательных чисел: {count}")
 
 sum_even_numbers()
