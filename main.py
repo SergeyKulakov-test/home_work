@@ -6,10 +6,7 @@ def sum_even_numbers():
     return print(f"Сумма четных чисел до 100: {sum}")
 
 def square_odd_numbers():
-    square_odd = []
-    for i in range(0, 10):
-        if i % 2 != 0:
-            square_odd.append(i)
+    square_odd = [1, 3, 5, 7, 9]
     square_odd = [x**2 for x in square_odd]
     return print(f"Список квадратов нечетных чисел до 10: {square_odd}")
 
