@@ -54,7 +54,10 @@ def analyze_text(text):
     }
 
 def print_results(results):
-    print(f"1. Общее количество слов: {results['word_count']}", f"2. Самое длинное слово: '{results['longest_word']}'", f"3. Количество гласных букв: {results['vowel_count']}", "4. Частота слов:", sep="\n")
+    print(f"1. Общее количество слов: {results['word_count']}")
+    print(f"2. Самое длинное слово: '{results['longest_word']}'")
+    print(f"3. Количество гласных букв: {results['vowel_count']}")
+    print("4. Частота слов:")
     for word, freq in results['word_frequency'].items():
         print(f"   '{word}': {freq}")
 
