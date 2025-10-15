@@ -1,70 +1,30 @@
-def clean_text(text):
-    punctuation = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
-    cleaned_text = ""
-    for char in text.lower():
-        if char not in punctuation:
-            cleaned_text += char
-    return cleaned_text
+def sum_even_numbers():
+    sum = 0
+    for i in range(0, 100):
+        if i % 2 == 0:
+            sum += i
+    return print(f"Сумма четных чисел до 100: {sum}")
 
+def square_odd_numbers():
+    square_odd = []
+    for i in range(0, 10):
+        if i % 2 != 0:
+            square_odd.append(i**2)
+    return print(f"Список квадратов нечетных чисел до 10: {square_odd}")
 
-def count_words(words):
-    return len(words)
-
-
-def find_longest_word(words):
-    longest_word = ""
-    for word in words:
-        if len(word) > len(longest_word):
-            longest_word = word
-    return longest_word
-
-
-def count_vowels(text):
-    vowels = "аеёиоуыэюя"
-    vowel_count = 0
-    for char in text:
-        if char in vowels:
-            vowel_count += 1
-    return vowel_count
-
-
-def count_word_frequency(words):
-    word_frequency = {}
-    for word in words:
-        if word in word_frequency:
-            word_frequency[word] += 1
+def count_positive_numbers():
+    count = 0
+    while True:
+        number = float(input("Введите число: "))
+        if number < 0:
+            break
         else:
-            word_frequency[word] = 1
-    return word_frequency
+            count += 1
+    return print(f"Количество введеных не отрицательных чисел: {count}")
 
-
-def analyze_text(text):
-    cleaned_text = clean_text(text)
-    words = cleaned_text.split()
-    word_count = count_words(words)
-    longest_word = find_longest_word(words)
-    vowel_count = count_vowels(cleaned_text)
-    word_frequency = count_word_frequency(words)
-
-    return {
-        'word_count': word_count,
-        'longest_word': longest_word,
-        'vowel_count': vowel_count,
-        'word_frequency': word_frequency
-    }
-
-def print_results(results):
-    print(f"1. Общее количество слов: {results['word_count']}")
-    print(f"2. Самое длинное слово: '{results['longest_word']}'")
-    print(f"3. Количество гласных букв: {results['vowel_count']}")
-    print("4. Частота слов:")
-    for word, freq in results['word_frequency'].items():
-        print(f"   '{word}': {freq}")
-
-text = input("Введите текст: ")
-results = analyze_text(text)
-print_results(results)
-
+sum_even_numbers()
+square_odd_numbers()
+count_positive_numbers()
 
 
 
