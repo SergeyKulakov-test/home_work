@@ -1,9 +1,11 @@
-my_list = []
+list1 = [1, 2, 3, 4, 5, 6]
+list2 = [10, 20, 30, 40, 50]
 
-for i in range(5):
-    text = input(f"Введите строку {i+1}: ")
-    my_list.append(text)
+min_length = min(len(list1), len(list2))
 
-my_list[0], my_list[-1] = my_list[-1], my_list[0]
+result_list = []
+for i in range(min_length):
+    sum_elements = list1[i] + list2[i]
+    result_list.append(sum_elements)
 
-print("Список после замены:", my_list)
+print("Список с суммами элементов:", result_list)
