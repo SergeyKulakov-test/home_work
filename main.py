@@ -1,25 +1,47 @@
-def input_number_list(list_name):
-    while True:
-        try:
-            numbers = input(f"Введите числа для {list_name} через пробел: ")
-            return [int(num) for num in numbers.split()]
-        except ValueError:
-            print("Ошибка! Пожалуйста, вводите только целые числа.")
+students = [
+    {"name": "Harry", "grades": [80, 90, 78]},
+    {"name": "Hermiona", "grades": [95, 90, 97]},
+    {"name": "Ron", "grades": [60, 70, 64]},
+    {"name": "Draco", "grades": [60, 75, 70]}
+]
 
 
-def sum_numbers(list_1, list_2):
-    min_length = min(len(list_1), len(list_2))
-    result_list = []
-    for i in range(min_length):
-        result_list.append(list_1[i] + list_2[i])
-    if len(list_1) > min_length:
-        result_list.extend(list_1[min_length:])
-    else:
-        result_list.extend(list_2[min_length:])
-    print("Список с суммами элементов:", result_list)
+def calculate_average(grades):
+    return sum(grades) / len(grades)
 
 
-list_1 = input_number_list("первого списка")
-list_2 = input_number_list("второго списка")
+def average_point(students):
+    total_score = 0
+    for student in students:
+        status_student = "Отстающий"
+        if calculate_average(student["grades"]) > 75:
+           status_student = "Успешен"
+        total_score += calculate_average(student["grades"])/len(students)
+        print(f"Студент: {student["name"]}", f"Средний балл: {round(calculate_average(student["grades"]), 2)}", f"Студент: {status_student} \n", sep="\n" )
+    return print(f"Общий средний балл: {round(total_score, 2)}\n")
 
-sum_numbers(list_1, list_2)
+
+def laggard_student(students):
+    worst_student = 0
+    for i in range(len(students)):
+        if i > 0:
+           if calculate_average(students[i]["grades"]) < calculate_average(students[i-1]["grades"]):
+            worst_student = i
+    students.pop(worst_student)
+    return students
+
+
+average_point(students)
+
+
+students.append({"name": "Sedrik", "grades": [85, 90, 98]})
+
+
+average_point(students)
+
+
+laggard_student(students)
+
+
+average_point(students)
+
