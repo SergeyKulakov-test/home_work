@@ -40,7 +40,7 @@ def laggard_student(students):
 
 
 def add_student(students):
-    name_student = str(input('Введите имя нового студента:  '))
+    name_student = input('Введите имя нового студента:  ')
     while True:
         try:
             grades_student = input('Введите оценки студента через пробел:  ')
