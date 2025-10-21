@@ -6,7 +6,6 @@ def create_list(list_elements):
     return list_elements
 
 def number_elements(list_elements):
-    print(list_elements)
     set_1 = set(list_elements)
     set_length = len(set_1)
     print(f"Уникальные элементы: {set_1}",f"Количество уникальных элементов: {set_length}", sep='\n')
