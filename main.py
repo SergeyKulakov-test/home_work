@@ -1,9 +1,8 @@
-list_1 = []
-
-def create_list(list_elements):
+def create_list():
     list_elements = input('Введите элементы списка через пробел:  ')
     list_elements = list(list_elements.split())
     return list_elements
+
 
 def number_elements(list_elements):
     set_1 = set(list_elements)
@@ -12,8 +11,7 @@ def number_elements(list_elements):
     return
 
 
-number_elements(create_list(list_1))
-
+number_elements(create_list())
 
 
 
