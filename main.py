@@ -1,17 +1,15 @@
-def create_list():
-    list_elements = input('Введите элементы списка через пробел:  ')
-    list_elements = list(list_elements.split())
-    return list_elements
+library = {"Маленький принц": {"Автор": "Антуана де Сент-Экзюпери", "Год издания": "1943", "Наличие": "В наличии"},
+           "Повелитель мух": {"Автор": "Уильям Голдинг", "Год издания": "1983", "Наличие": "Нет в наличии"},
+           "Мастер и маргарита": {"Автор": "Михаил Афанасьевич Булгаков", "Год издания": "1967 ", "Наличие": "В наличии"},
+           }
 
 
-def number_elements(list_elements):
-    set_1 = set(list_elements)
-    set_length = len(set_1)
-    print(f"Уникальные элементы: {set_1}",f"Количество уникальных элементов: {set_length}", sep='\n')
+def book_list_view(library):
+    if len(library) == 0:
+        print("В библиотеке нет книг")
+    for key in list(library.keys()):
+        print(key)
     return
 
 
-number_elements(create_list())
-
-
-
+book_list_view(library)
