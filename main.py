@@ -5,7 +5,7 @@ library = {"Маленький принц": {"Автор": "Антуана де 
 
 
 def book_list_view(library):
-    if len(library) == 0:
+    if not library:
         print("В библиотеке нет книг")
     for key in list(library.keys()):
         print(key)
