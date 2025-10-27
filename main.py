@@ -6,16 +6,12 @@ def book_list_view(library):
         print(key)
 
 
-def add_book():
-    title = input("Введите название книги: ")
-    author = input("Введите автора книги: ")
-    while True:
-        try:
-            year = int(input("Введите год издания книги: "))
-            library[title] = {"Автор": author, "Год издания": str(year), "Наличие": None}
-            return library
-        except ValueError:
-            print("Год должен быть числом!")
+def add_book(title, author, year):
+    try:
+        library[title] = {"Автор": author, "Год издания": year, "Наличие": None}
+        return library
+    except NameError:
+        print("Библиотека не создана")
 
 
 library = {
@@ -23,7 +19,7 @@ library = {
         "Автор": "Антуана де Сент-Экзюпери", "Год издания": "1943", "Наличие": "В наличии"
     },
     "Повелитель мух": {
-        "Автор": "Уильям Голдинг", "Год издания": "1983", "Наличие": "Нет в наличии"
+"Автор": "Уильям Голдинг", "Год издания": "1983", "Наличие": "Нет в наличии"
     },
     "Мастер и маргарита": {
         "Автор": "Михаил Афанасьевич Булгаков", "Год издания": "1967 ", "Наличие": "В наличии"
@@ -31,5 +27,9 @@ library = {
 }
 
 
-add_book()
+title = input("Введите название книги: ")
+author = input("Введите автора книги: ")
+year = input("Введите год издания книги: ")
+
+add_book(title, author, year)
 book_list_view(library)
