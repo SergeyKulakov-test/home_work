@@ -4,7 +4,18 @@ def book_list_view(library):
         return
     for key in library:
         print(key)
-    return
+
+
+def add_book():
+    title = input("Введите название книги: ")
+    author = input("Введите автора книги: ")
+    while True:
+        try:
+            year = int(input("Введите год издания книги: "))
+            library[title] = {"Автор": author, "Год издания": str(year), "Наличие": None}
+            return library
+        except ValueError:
+            print("Год должен быть числом!")
 
 
 library = {
@@ -20,4 +31,5 @@ library = {
 }
 
 
+add_book()
 book_list_view(library)
