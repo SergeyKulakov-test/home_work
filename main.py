@@ -1,3 +1,12 @@
+def book_list_view(library):
+    if not library:
+        print("В библиотеке нет книг")
+        return
+    for key in library:
+        print(key)
+    return
+
+
 library = {
     "Маленький принц": {
         "Автор": "Антуана де Сент-Экзюпери", "Год издания": "1943", "Наличие": "В наличии"
@@ -9,13 +18,6 @@ library = {
         "Автор": "Михаил Афанасьевич Булгаков", "Год издания": "1967 ", "Наличие": "В наличии"
     },
 }
-
-
-def book_list_view(library):
-    if not library:
-        print("В библиотеке нет книг")
-    for key in library.keys():
-        print(key)
 
 
 book_list_view(library)
