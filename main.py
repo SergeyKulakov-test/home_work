@@ -21,16 +21,43 @@ def remove_book(title):
         print(f"Книги с названием '{title}' нет в библиотеке.")
 
 
+def issue_book(title):
+    try:
+        if library[title]["Наличие"] == None:
+            print(f"Новая книга '{title}', еще не готова для выдачи .")
+            return
+        if library[title]["Наличие"] == False:
+            print(f"Книга '{title}' уже выдана.")
+        else:
+            library[title]["Наличие"] = False
+            print(f"Книга '{title}' успешно выдана.")
+    except KeyError:
+        print(f"Книга с названием '{title}' не найдена в библиотеке.")
+
+
+def return_book(title):
+    try:
+        if library[title]["Наличие"] == None:
+            print(f"Новая книга '{title}', нельзя вернуть.")
+            return
+        if library[title]["Наличие"] == True:
+            print(f"Книга '{title}' уже находится в библиотеке.")
+        else:
+            library[title]["Наличие"] = True
+            print(f"Книга '{title}' возвращена в библиотеку.")
+    except KeyError:
+        print(f"Книга с названием '{title}' не найдена в библиотеке.")
+
 
 library = {
     "Маленький принц": {
-        "Автор": "Антуана де Сент-Экзюпери", "Год издания": "1943", "Наличие": "В наличии"
+        "Автор": "Антуана де Сент-Экзюпери", "Год издания": "1943", "Наличие": True
     },
     "Повелитель мух": {
-"Автор": "Уильям Голдинг", "Год издания": "1983", "Наличие": "Нет в наличии"
+"Автор": "Уильям Голдинг", "Год издания": "1983", "Наличие": False
     },
     "Мастер и маргарита": {
-        "Автор": "Михаил Афанасьевич Булгаков", "Год издания": "1967 ", "Наличие": "В наличии"
+        "Автор": "Михаил Афанасьевич Булгаков", "Год издания": "1967 ", "Наличие": True
     },
 }
 
@@ -44,7 +71,14 @@ add_book(title, author, year)
 book_list_view(library)
 
 
-title_delete = input("Введите название книги для удаления: ")
+title_issue = input("Введите название книги для выдачи: ")
 
+issue_book(title_issue)
+
+title_return = input("Введите название книги для возврата: ")
+
+return_book(title_return)
+
+title_delete = input("Введите название книги для удаления: ")
 
 remove_book(title_delete)
