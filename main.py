@@ -6,14 +6,14 @@ def book_list_view(library):
         print(key)
 
 
-def add_book(title, author, year):
+def add_book(title, author, year, library):
     try:
-        library[title] = {"Автор": author, "Год издания": year, "Наличие": None}
+        library[title] = {"Автор": author, "Год издания": year, "Наличие": True}
         return library
     except NameError:
         print("Библиотека не создана")
 
-def remove_book(title):
+def remove_book(title, library):
     try:
         del library[title]
         print(f"Книга '{title}' была удалена из библиотеки.")
@@ -21,11 +21,8 @@ def remove_book(title):
         print(f"Книги с названием '{title}' нет в библиотеке.")
 
 
-def issue_book(title):
+def issue_book(title, library):
     try:
-        if library[title]["Наличие"] == None:
-            print(f"Новая книга '{title}', еще не готова для выдачи .")
-            return
         if library[title]["Наличие"] == False:
             print(f"Книга '{title}' уже выдана.")
         else:
@@ -35,7 +32,7 @@ def issue_book(title):
         print(f"Книга с названием '{title}' не найдена в библиотеке.")
 
 
-def return_book(title):
+def return_book(title, library):
     try:
         if library[title]["Наличие"] == None:
             print(f"Новая книга '{title}', нельзя вернуть.")
@@ -51,13 +48,19 @@ def return_book(title):
 
 library = {
     "Маленький принц": {
-        "Автор": "Антуана де Сент-Экзюпери", "Год издания": "1943", "Наличие": True
+        "Автор": "Антуана де Сент-Экзюпери",
+        "Год издания": "1943",
+        "Наличие": True
     },
     "Повелитель мух": {
-"Автор": "Уильям Голдинг", "Год издания": "1983", "Наличие": False
+        "Автор": "Уильям Голдинг",
+        "Год издания": "1983",
+        "Наличие": False
     },
     "Мастер и маргарита": {
-        "Автор": "Михаил Афанасьевич Булгаков", "Год издания": "1967 ", "Наличие": True
+        "Автор": "Михаил Афанасьевич Булгаков",
+        "Год издания": "1967 ",
+        "Наличие": True
     },
 }
 
@@ -67,18 +70,18 @@ author = input("Введите автора книги: ")
 year = input("Введите год издания книги: ")
 
 
-add_book(title, author, year)
+add_book(title, author, year, library)
 book_list_view(library)
 
 
 title_issue = input("Введите название книги для выдачи: ")
 
-issue_book(title_issue)
+issue_book(title_issue, library)
 
 title_return = input("Введите название книги для возврата: ")
 
-return_book(title_return)
+return_book(title_return, library)
 
 title_delete = input("Введите название книги для удаления: ")
 
-remove_book(title_delete)
+remove_book(title_delete, library)
