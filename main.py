@@ -13,6 +13,14 @@ def add_book(title, author, year):
     except NameError:
         print("Библиотека не создана")
 
+def remove_book(title):
+    try:
+        del library[title]
+        print(f"Книга '{title}' была удалена из библиотеки.")
+    except KeyError:
+        print(f"Книги с названием '{title}' нет в библиотеке.")
+
+
 
 library = {
     "Маленький принц": {
@@ -31,5 +39,12 @@ title = input("Введите название книги: ")
 author = input("Введите автора книги: ")
 year = input("Введите год издания книги: ")
 
+
 add_book(title, author, year)
 book_list_view(library)
+
+
+title_delete = input("Введите название книги для удаления: ")
+
+
+remove_book(title_delete)
