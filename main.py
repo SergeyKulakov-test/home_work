@@ -34,9 +34,6 @@ def issue_book(title, library):
 
 def return_book(title, library):
     try:
-        if library[title]["Наличие"] == None:
-            print(f"Новая книга '{title}', нельзя вернуть.")
-            return
         if library[title]["Наличие"] == True:
             print(f"Книга '{title}' уже находится в библиотеке.")
         else:
@@ -44,6 +41,22 @@ def return_book(title, library):
             print(f"Книга '{title}' возвращена в библиотеку.")
     except KeyError:
         print(f"Книга с названием '{title}' не найдена в библиотеке.")
+
+
+def find_book(title, library):
+    try:
+        if library[title]["Наличие"]:
+            status = "В наличии"
+        else:
+            status = "Выдана"
+        print(f"Информация о книге '{title}':")
+        print(f"  Автор: {library[title]["Автор"]}")
+        print(f"  Год издания: {library[title]["Год издания"]}")
+        print(f"  Наличие: {status}")
+    except KeyError:
+        print(f"Книга с названием '{title}' не найдена в библиотеке.")
+
+
 
 
 library = {
@@ -81,6 +94,8 @@ issue_book(title_issue, library)
 title_return = input("Введите название книги для возврата: ")
 
 return_book(title_return, library)
+
+find_book(title_return, library)
 
 title_delete = input("Введите название книги для удаления: ")
 
