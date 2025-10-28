@@ -63,6 +63,59 @@ def find_book(title, library):
         print(f"Книга с названием '{title}' не найдена в библиотеке.")
 
 
+def menu_book_list_view():
+    print("Список книг в библиотеке")
+    book_list_view(library)
+
+
+def menu_add_book():
+    print("Введите данные для добавления книги в библиотеку")
+    title = input("Введите название книги: ")
+    author = input("Введите автора книги: ")
+    year = input("Введите год издания книги: ")
+    add_book(title, author, year, library)
+
+
+def menu_remove_book():
+    title = input("Введите название книги для удаления: ")
+    remove_book(title, library)
+
+
+def menu_issue_book():
+    title = input("Введите название книги для выдачи: ")
+    issue_book(title, library)
+
+
+def menu_return_book():
+    title = input("Введите название книги для возврата: ")
+    return_book(title, library)
+
+
+def menu_find_book():
+    title = input("Введите название книги для поиска: ")
+    find_book(title, library)
+
+
+def main():
+    while True:
+        print("МЕНЮ:")
+        for key, value in function_menu.items():
+            print(f"{key}. {value[0]}")
+        choice = input("Выберите пункт меню: ")
+        if choice in function_menu:
+            function_menu[choice][1]()
+        else:
+            print("Неверный пункт меню. Попробуйте снова.")
+
+
+function_menu = {
+        "1": ("Просмотреть какие книги сейчас в библиотеке", menu_book_list_view),
+        "2": ("Добавить книгу", menu_add_book),
+        "3": ("Взять книгу", menu_issue_book),
+        "4": ("Вернуть книгу", menu_return_book),
+        "5": ("Найти книгу", menu_find_book),
+        "6": ("Удалить книгу", menu_remove_book),
+}
 
 
 library = {
@@ -84,27 +137,4 @@ library = {
 }
 
 
-title = input("Введите название книги: ")
-author = input("Введите автора книги: ")
-year = input("Введите год издания книги: ")
-
-
-add_book(title, author, year, library)
-book_list_view(library)
-
-
-title_issue = input("Введите название книги для выдачи: ")
-
-issue_book(title_issue, library)
-
-title_return = input("Введите название книги для возврата: ")
-
-find_book(title_return, library)
-
-return_book(title_return, library)
-
-find_book(title_return, library)
-
-title_delete = input("Введите название книги для удаления: ")
-
-remove_book(title_delete, library)
+main()
