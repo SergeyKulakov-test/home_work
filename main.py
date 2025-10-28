@@ -8,7 +8,7 @@ def book_list_view(library):
 
 def add_book(title, author, year, library):
     try:
-        library[title] = {"Автор": author, "Год издания": year, "Наличие": True}
+        library[title] = {"Автор": author, "Год издания": year, "Наличие": None}
         return library
     except NameError:
         print("Библиотека не создана")
@@ -22,6 +22,9 @@ def remove_book(title, library):
 
 
 def issue_book(title, library):
+    if library[title]["Наличие"] == None:
+        print("Книга в библиотеке, но ее статус не определен")
+        return
     try:
         if library[title]["Наличие"] == False:
             print(f"Книга '{title}' уже выдана.")
@@ -44,11 +47,14 @@ def return_book(title, library):
 
 
 def find_book(title, library):
+    if library[title]["Наличие"] == None:
+        print("Книга в библиотеке, но ее статус не определен")
+        return
     try:
         if library[title]["Наличие"]:
-            status = "В наличии"
+            status = "Книга доступна"
         else:
-            status = "Выдана"
+            status = "Книга выдана"
         print(f"Информация о книге '{title}':")
         print(f"  Автор: {library[title]["Автор"]}")
         print(f"  Год издания: {library[title]["Год издания"]}")
@@ -92,6 +98,8 @@ title_issue = input("Введите название книги для выда�
 issue_book(title_issue, library)
 
 title_return = input("Введите название книги для возврата: ")
+
+find_book(title_return, library)
 
 return_book(title_return, library)
 
