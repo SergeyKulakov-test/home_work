@@ -32,43 +32,44 @@ class ToDoList:
             print(f"{i}. [{status}] {task_item['task']}")
 
 
-def menu_add_task():
+def menu_add_task(todo_list):
     task = input("Введите задачу для добавления: ")
-    todo.add_task(task)
-    return todo
+    todo_list.add_task(task)
 
 
-def menu_list_tasks():
-    todo.list_tasks()
+def menu_list_tasks(todo_list):
+    todo_list.list_tasks()
 
 
-def menu_complete_task():
+def menu_complete_task(todo_list):
     task = input("Введите задачу для отметки выполнения: ")
-    todo.complete_task(task)
+    todo_list.complete_task(task)
 
 
-def menu_remove_task():
+def menu_remove_task(todo_list):
     task = input("Введите задачу для удаления: ")
-    todo.remove_task(task)
+    todo_list.remove_task(task)
 
 
 def main():
-    while True:
-        print("МЕНЮ:")
-        for key, value in function_menu.items():
-            print(f"{key}. {value[0]}")
-        choice = input("Выберите пункт меню: ")
-        if choice in function_menu:
-            function_menu[choice][1]()
-        else:
-            print("Неверный пункт меню. Попробуйте снова.")
+    todo = ToDoList()
 
-function_menu = {
+    function_menu = {
         "1": ("Добавить задачу", menu_add_task),
         "2": ("Вывод списка задач", menu_list_tasks),
         "3": ("Отметить задачу как выполненную", menu_complete_task),
         "4": ("Удалить задачу", menu_remove_task),
-}
+    }
+
+    while True:
+        print("\nМЕНЮ:")
+        for key, value in function_menu.items():
+            print(f"{key}. {value[0]}")
+        choice = input("Выберите пункт меню: ")
+        if choice in function_menu:
+            function_menu[choice][1](todo)
+        else:
+            print("Неверный пункт меню. Попробуйте снова.")
 
 
 todo = ToDoList()
