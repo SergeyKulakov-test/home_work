@@ -1,99 +1,55 @@
-def book_list_view(library):
-    if not library:
-        print("В библиотеке нет книг")
-        return
-    for key in library:
-        print(key)
+class ToDoList:
+    def __init__(self):
+        self.tasks = []
+
+    def add_task(self, task):
+        self.tasks.append({"task": task, "completed": False})
+        print(f"Задача '{task}' добавлена.")
+
+    def complete_task(self, task):
+        for t in self.tasks:
+            if t["task"] == task:
+                t["completed"] = True
+                print(f"Задача '{task}' отмечена как выполненная.")
+                return
+        print(f"Ошибка: Задача '{task}' не найдена.")
+
+    def remove_task(self, task):
+        for t in self.tasks:
+            if t["task"] == task:
+                self.tasks.remove(t)
+                print(f"Задача '{task}' удалена.")
+                return
+        print(f"Ошибка: Задача '{task}' не найдена.")
+
+    def list_tasks(self):
+        if not self.tasks:
+            print("Список задач пуст.")
+            return
+        print("\nСписок задач:")
+        for i, task_item in enumerate(self.tasks, 1):
+            status = "Выполнено" if task_item["completed"] else "Не выполнено"
+            print(f"{i}. [{status}] {task_item['task']}")
 
 
-def add_book(title, author, year, library):
-    try:
-        library[title] = {"Автор": author, "Год издания": year, "Наличие": None}
-        return library
-    except NameError:
-        print("Библиотека не создана")
-
-def remove_book(title, library):
-    try:
-        del library[title]
-        print(f"Книга '{title}' была удалена из библиотеки.")
-    except KeyError:
-        print(f"Книги с названием '{title}' нет в библиотеке.")
+def menu_add_task():
+    task = input("Введите задачу для добавления: ")
+    todo.add_task(task)
+    return todo
 
 
-def issue_book(title, library):
-    if library[title]["Наличие"] == None:
-        print("Книга в библиотеке, но ее статус не определен")
-        return
-    try:
-        if library[title]["Наличие"] == False:
-            print(f"Книга '{title}' уже выдана.")
-        else:
-            library[title]["Наличие"] = False
-            print(f"Книга '{title}' успешно выдана.")
-    except KeyError:
-        print(f"Книга с названием '{title}' не найдена в библиотеке.")
+def menu_list_tasks():
+    todo.list_tasks()
 
 
-def return_book(title, library):
-    try:
-        if library[title]["Наличие"] == True:
-            print(f"Книга '{title}' уже находится в библиотеке.")
-        else:
-            library[title]["Наличие"] = True
-            print(f"Книга '{title}' возвращена в библиотеку.")
-    except KeyError:
-        print(f"Книга с названием '{title}' не найдена в библиотеке.")
+def menu_complete_task():
+    task = input("Введите задачу для отметки выполнения: ")
+    todo.complete_task(task)
 
 
-def find_book(title, library):
-    if library[title]["Наличие"] == None:
-        print("Книга в библиотеке, но ее статус не определен")
-        return
-    try:
-        if library[title]["Наличие"]:
-            status = "Книга доступна"
-        else:
-            status = "Книга выдана"
-        print(f"Информация о книге '{title}':")
-        print(f"  Автор: {library[title]["Автор"]}")
-        print(f"  Год издания: {library[title]["Год издания"]}")
-        print(f"  Наличие: {status}")
-    except KeyError:
-        print(f"Книга с названием '{title}' не найдена в библиотеке.")
-
-
-def menu_book_list_view():
-    print("Список книг в библиотеке")
-    book_list_view(library)
-
-
-def menu_add_book():
-    print("Введите данные для добавления книги в библиотеку")
-    title = input("Введите название книги: ")
-    author = input("Введите автора книги: ")
-    year = input("Введите год издания книги: ")
-    add_book(title, author, year, library)
-
-
-def menu_remove_book():
-    title = input("Введите название книги для удаления: ")
-    remove_book(title, library)
-
-
-def menu_issue_book():
-    title = input("Введите название книги для выдачи: ")
-    issue_book(title, library)
-
-
-def menu_return_book():
-    title = input("Введите название книги для возврата: ")
-    return_book(title, library)
-
-
-def menu_find_book():
-    title = input("Введите название книги для поиска: ")
-    find_book(title, library)
+def menu_remove_task():
+    task = input("Введите задачу для удаления: ")
+    todo.remove_task(task)
 
 
 def main():
@@ -107,34 +63,13 @@ def main():
         else:
             print("Неверный пункт меню. Попробуйте снова.")
 
-
 function_menu = {
-        "1": ("Просмотреть какие книги сейчас в библиотеке", menu_book_list_view),
-        "2": ("Добавить книгу", menu_add_book),
-        "3": ("Взять книгу", menu_issue_book),
-        "4": ("Вернуть книгу", menu_return_book),
-        "5": ("Найти книгу", menu_find_book),
-        "6": ("Удалить книгу", menu_remove_book),
+        "1": ("Добавить задачу", menu_add_task),
+        "2": ("Вывод списка задач", menu_list_tasks),
+        "3": ("Отметить задачу как выполненную", menu_complete_task),
+        "4": ("Удалить задачу", menu_remove_task),
 }
 
 
-library = {
-    "Маленький принц": {
-        "Автор": "Антуана де Сент-Экзюпери",
-        "Год издания": "1943",
-        "Наличие": True
-    },
-    "Повелитель мух": {
-        "Автор": "Уильям Голдинг",
-        "Год издания": "1983",
-        "Наличие": False
-    },
-    "Мастер и маргарита": {
-        "Автор": "Михаил Афанасьевич Булгаков",
-        "Год издания": "1967 ",
-        "Наличие": True
-    },
-}
-
-
+todo = ToDoList()
 main()
