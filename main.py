@@ -1,35 +1,45 @@
 class ToDoList:
     def __init__(self):
-        self.tasks = []
+        self.tasks = {}
+        self.next_id = 1
 
     def add_task(self, task):
-        self.tasks.append({"task": task, "completed": False})
-        print(f"Задача '{task}' добавлена.")
+        task_id = self.next_id
+        self.tasks[task_id] = {"task": task, "completed": False}
+        print(f"Задача #{task_id} '{task}' добавлена.")
+        self.next_id += 1
 
-    def complete_task(self, task):
-        for t in self.tasks:
-            if t["task"] == task:
-                t["completed"] = True
-                print(f"Задача '{task}' отмечена как выполненная.")
-                return
-        print(f"Ошибка: Задача '{task}' не найдена.")
+    def complete_task(self, task_id):
+        try:
+            task_id = int(task_id)
+            if task_id in self.tasks:
+                self.tasks[task_id]["completed"] = True
+                print(f"Задача #{task_id} отмечена как выполненная.")
+            else:
+                print(f"Ошибка: Задача #{task_id} не найдена.")
+        except ValueError:
+            print("Ошибка: ID задачи должен быть числом.")
 
-    def remove_task(self, task):
-        for t in self.tasks:
-            if t["task"] == task:
-                self.tasks.remove(t)
-                print(f"Задача '{task}' удалена.")
-                return
-        print(f"Ошибка: Задача '{task}' не найдена.")
+    def remove_task(self, task_id):
+        try:
+            task_id = int(task_id)
+            if task_id in self.tasks:
+                task_text = self.tasks[task_id]["task"]
+                del self.tasks[task_id]
+                print(f"Задача #{task_id} '{task_text}' удалена.")
+            else:
+                print(f"Ошибка: Задача #{task_id} не найдена.")
+        except ValueError:
+            print("Ошибка: ID задачи должен быть числом.")
 
     def list_tasks(self):
         if not self.tasks:
             print("Список задач пуст.")
             return
         print("\nСписок задач:")
-        for i, task_item in enumerate(self.tasks, 1):
-            status = "Выполнено" if task_item["completed"] else "Не выполнено"
-            print(f"{i}. [{status}] {task_item['task']}")
+        for task_id, task_info in self.tasks.items():
+            status = "Выполнено" if task_info["completed"] else "Не выполнено"
+            print(f"{task_id}. [{status}] {task_info['task']}")
 
 
 def menu_add_task(todo_list):
@@ -42,13 +52,15 @@ def menu_list_tasks(todo_list):
 
 
 def menu_complete_task(todo_list):
-    task = input("Введите задачу для отметки выполнения: ")
-    todo_list.complete_task(task)
+    todo_list.list_tasks()
+    task_id = input("Введите ID задачи для отметки выполнения: ")
+    todo_list.complete_task(task_id)
 
 
 def menu_remove_task(todo_list):
-    task = input("Введите задачу для удаления: ")
-    todo_list.remove_task(task)
+    todo_list.list_tasks()
+    task_id = input("Введите ID задачи для удаления: ")
+    todo_list.remove_task(task_id)
 
 
 def main():
@@ -72,5 +84,5 @@ def main():
             print("Неверный пункт меню. Попробуйте снова.")
 
 
-todo = ToDoList()
-main()
+if __name__ == "__main__":
+    main()
