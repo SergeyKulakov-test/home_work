@@ -1,34 +1,26 @@
-import math
-from abc import ABC, abstractmethod
+class BankAccount:
+    def __init__(self, initial_balance=0):
+        self.__balance = initial_balance
 
+    def deposit(self, amount):
+        if amount > 0:
+            self.__balance += amount
+            print(f"Успешно внесено: {amount} руб. Текущий баланс: {self.__balance} руб.")
+        else:
+            print("Ошибка: Сумма для депозита должна быть положительной.")
 
-class Shape(ABC):
-    @abstractmethod
-    def area(self):
-        pass
+    def withdraw(self, amount):
+        if amount <= 0:
+            print("Ошибка: Сумма для снятия должна быть положительной.")
+        elif amount > self.__balance:
+            print(f"Ошибка: Недостаточно средств. Текущий баланс: {self.__balance} руб.")
+        else:
+            self.__balance -= amount
+            print(f"Успешно снято: {amount} руб. Текущий баланс: {self.__balance} руб.")
 
+    def get_balance(self):
+        return self.__balance
 
-class Rectangle(Shape):
-    def __init__(self, width, height):
-        self.width = width
-        self.height = height
+    def display_balance(self):
+        print(f"Текущий баланс: {self.__balance} руб.")
 
-    def area(self):
-        return self.width * self.height
-
-
-class Circle(Shape):
-    def __init__(self, radius):
-        self.radius = radius
-
-    def area(self):
-        return math.pi * self.radius ** 2
-
-
-if __name__ == "__main__":
-
-    rectangle = Rectangle(5, 3)
-    circle = Circle(4)
-
-    print(f"Площадь прямоугольника: {rectangle.area()}")  # 15
-    print(f"Площадь круга: {circle.area():.2f}")  # 50.27
