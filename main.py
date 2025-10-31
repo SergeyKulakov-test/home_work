@@ -1,82 +1,74 @@
-class BankAccount:
-    def __init__(self, initial_balance=0):
-        self.__balance = initial_balance  # Приватный атрибут
+class FileManager:
+    def __init__(self, filename):
+        self.__filename = filename
 
-    def deposit(self, amount):
-        if amount > 0:
-            self.__balance += amount
-            print(f"Успешно внесено: {amount} руб. Текущий баланс: {self.__balance} руб.")
-            return True
+    def set_filename(self, filename):
+        if isinstance(filename, str) and filename.strip():
+            self.__filename = filename.strip()
         else:
-            print("Ошибка: Сумма для депозита должна быть положительной.")
-            return False
+            print("Ошибка: Имя файла должна быть непустой строкой.")
 
-    def withdraw(self, amount):
-        if amount <= 0:
-            print("Ошибка: Сумма для снятия должна быть положительной.")
-            return False
-        elif amount > self.__balance:
-            print(f"Ошибка: Недостаточно средств. Текущий баланс: {self.__balance} руб.")
-            return False
-        else:
-            self.__balance -= amount
-            print(f"Успешно снято: {amount} руб. Текущий баланс: {self.__balance} руб.")
-            return True
-
-    def get_balance(self):
-        return self.__balance
-
-    def display_balance(self):
-        print(f"Текущий баланс: {self.__balance} руб.")
-
-
-def get_positive_number(prompt):
-    while True:
+    def read_file(self):
         try:
-            value = float(input(prompt))
-            if value <= 0:
-                print("Ошибка: Введите положительное число.")
-                continue
-            return value
-        except ValueError:
-            print("Ошибка: Введите корректное число.")
+            with open(self.__filename, 'r', encoding='utf-8') as file:
+                content = file.read()
+                print(f"Содержимое файла {self.__filename}:")
+                print(content)
+        except FileNotFoundError:
+            print(f"Ошибка: Файл '{self.__filename}' не найден.")
+        except UnicodeDecodeError:
+            print(f"Ошибка: Невозможно прочитать файл '{self.__filename}' в кодировке UTF-8.")
 
+    def add_to_file(self):
+        content = input("Введите текст для добавления в файл: ")
+        with open(self.__filename, 'a', encoding='utf-8') as file:
+            file.write(content + "\n")
+        print(f"Текст успешно добавлен в файл '{self.__filename}'.")
 
-def menu_display_balance(account):
-    account.display_balance()
+    def read_file_line(self):
+        try:
+            with open(self.__filename, 'r', encoding='utf-8') as file:
+                print(f"Содержимое файла {self.__filename} (построчно):")
+                for line_num, line in enumerate(file, 1):
+                    print(f"{line_num}: {line.strip()}")
+        except FileNotFoundError:
+            print(f"Ошибка: Файл '{self.__filename}' не найден.")
+        except UnicodeDecodeError:
+            print(f"Ошибка: Невозможно прочитать файл '{self.__filename}' в кодировке UTF-8.")
 
-
-def menu_deposit(account):
-    amount = get_positive_number("Введите сумму для внесения: ")
-    account.deposit(amount)
-
-
-def menu_withdraw(account):
-    amount = get_positive_number("Введите сумму для снятия: ")
-    account.withdraw(amount)
+    def type_convert_file(self):
+        try:
+            with open(self.__filename, 'rb') as file, open(self.__filename + '.bin', 'wb') as data_new:
+                data_new.write(file.read())
+            print(f"Файл успешно конвертирован в бинарный: '{self.__filename}.bin'")
+        except FileNotFoundError:
+            print(f"Ошибка: Файл '{self.__filename}' не найден.")
 
 
 def main():
-    account = BankAccount(1000)
+    file_manager = FileManager("data.txt")
 
     menu_options = {
-        "1": ("Показать баланс", menu_display_balance),
-        "2": ("Внести деньги", menu_deposit),
-        "3": ("Снять деньги", menu_withdraw),
-        "4": ("Выйти", None)
+        "1": ("Прочитать файл", file_manager.read_file),
+        "2": ("Добавить текст в файл", file_manager.add_to_file),
+        "3": ("Прочитать файл построчно", file_manager.read_file_line),
+        "4": ("Конвертировать файл в бинарный", file_manager.type_convert_file),
+        "5": ("Выйти", None)
     }
 
     while True:
-        print("БАНКОВСКИЙ СЧЕТ")
+        print("МЕНЮ")
+
         for key, value in menu_options.items():
             print(f"{key}. {value[0]}")
+
         choice = input("Выберите пункт меню: ")
-        if choice == "4":
+
+        if choice == "5":
             print("До свидания!")
             break
         elif choice in menu_options:
-            if choice != "4":
-                menu_options[choice][1](account)
+            menu_options[choice][1]()
         else:
             print("Неверный пункт меню. Попробуйте снова.")
 
